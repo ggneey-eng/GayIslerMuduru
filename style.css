@@ -1,0 +1,2029 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap');
+
+:root {
+
+  --background: #24232d;
+
+  --text: #f4e7d4;
+
+  --muted: #b6a9a7;
+
+  --gold: #e7c57e;
+
+}
+
+* {
+
+  box-sizing: border-box;
+
+}
+
+body {
+
+  margin: 0;
+
+  background: var(--background);
+
+  color: var(--text);
+
+  font-family: 'DM Sans', sans-serif;
+
+  overflow-x: hidden;
+
+}
+
+.screen {
+
+  min-height: 100vh;
+
+  min-height: 100dvh;
+
+  display: none;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 35px 20px;
+
+  text-align: center;
+
+}
+
+.screen.active {
+
+  display: flex;
+
+  animation: appear 0.8s ease both;
+
+}
+
+.login-content,
+
+.welcome-content {
+
+  width: 100%;
+
+  max-width: 420px;
+
+}
+
+.little-flower {
+
+  color: var(--gold);
+
+  font-size: 36px;
+
+  margin-bottom: 20px;
+
+}
+
+h1, h2 {
+
+  font-family: 'Playfair Display', serif;
+
+  font-weight: 400;
+
+  line-height: 1.25;
+
+}
+
+h1 {
+
+  font-size: clamp(38px, 8vw, 52px);
+
+  margin: 0 0 18px;
+
+}
+
+.subtitle {
+
+  color: var(--muted);
+
+  font-size: 14px;
+
+  margin-bottom: 55px;
+
+}
+
+.password-label {
+
+  font-size: 14px;
+
+  letter-spacing: 2px;
+
+  color: var(--gold);
+
+}
+
+.password-dots {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 16px;
+
+  margin: 22px 0 32px;
+
+}
+
+.password-dots span {
+
+  width: 12px;
+
+  height: 12px;
+
+  border: 1px solid var(--gold);
+
+  border-radius: 50%;
+
+  transition: background 0.2s;
+
+}
+
+.password-dots span.filled {
+
+  background: var(--gold);
+
+}
+
+.keypad {
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 72px);
+
+  gap: 15px;
+
+  justify-content: center;
+
+}
+
+.keypad button {
+
+  width: 72px;
+
+  height: 72px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(244, 231, 212, 0.18);
+
+  background: rgba(255, 255, 255, 0.045);
+
+  color: var(--text);
+
+  font-size: 25px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+
+  touch-action: manipulation;
+
+}
+
+.keypad button:hover,
+
+.keypad button:active {
+
+  background: rgba(231, 197, 126, 0.22);
+
+  transform: scale(1.05);
+
+}
+
+#delete-key {
+
+  font-size: 24px;
+
+  border: none;
+
+  background: transparent;
+
+}
+
+#error-message {
+
+  color: #eaa5a5;
+
+  min-height: 20px;
+
+  font-size: 13px;
+
+  margin-top: 20px;
+
+}
+
+.welcome-content h2 {
+
+  font-size: clamp(34px, 8vw, 48px);
+
+}
+
+.welcome-content p {
+
+  font-size: 16px;
+
+  line-height: 2;
+
+  color: var(--muted);
+
+  margin: 30px 0 45px;
+
+}
+
+.next-button {
+
+  padding: 15px 45px;
+
+  border: 1px solid var(--gold);
+
+  background: transparent;
+
+  color: var(--gold);
+
+  border-radius: 30px;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+}
+
+.next-button:hover {
+
+  background: var(--gold);
+
+  color: var(--background);
+
+}
+
+#flower-container {
+
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  z-index: 100;
+
+}
+
+.falling-flower {
+
+  position: absolute;
+
+  top: -70px;
+
+  animation: flower-fall linear forwards;
+
+  will-change: transform;
+
+}
+
+@keyframes flower-fall {
+
+  0% {
+
+    transform: translate3d(0, -30px, 0) rotate(0deg);
+
+    opacity: 0;
+
+  }
+
+  10% {
+
+    opacity: 1;
+
+  }
+
+  90% {
+
+    opacity: 1;
+
+  }
+
+  100% {
+
+    transform: translate3d(var(--drift), 110vh, 0)
+
+      rotate(var(--rotation));
+
+    opacity: 0;
+
+  }
+
+}
+
+@keyframes appear {
+
+  from {
+
+    opacity: 0;
+
+    transform: translateY(15px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .keypad {
+
+    grid-template-columns: repeat(3, 65px);
+
+    gap: 12px;
+
+  }
+
+  .keypad button {
+
+    width: 65px;
+
+    height: 65px;
+
+  }
+
+  .subtitle {
+
+    margin-bottom: 35px;
+
+  }
+
+}
+
+/* PUZZLE SAYFASI */
+
+.puzzle-content {
+
+  width: 100%;
+
+  max-width: 470px;
+
+  margin: auto;
+
+}
+
+.puzzle-content h2 {
+
+  font-size: clamp(30px, 7vw, 42px);
+
+  margin: 10px 0 15px;
+
+}
+
+.puzzle-description {
+
+  color: var(--muted);
+
+  font-size: 14px;
+
+  line-height: 1.7;
+
+  margin-bottom: 25px;
+
+}
+
+#puzzle-board {
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  width: min(88vw, 400px);
+
+  aspect-ratio: 1;
+
+  margin: 0 auto;
+
+  gap: 3px;
+
+  padding: 5px;
+
+  background: rgba(231, 197, 126, 0.15);
+
+  border: 1px solid rgba(231, 197, 126, 0.4);
+
+  border-radius: 9px;
+
+  touch-action: manipulation;
+
+}
+
+.puzzle-piece {
+
+  border: none;
+
+  border-radius: 3px;
+
+  padding: 0;
+
+  background-image: url("puzzle.jpg");
+
+  background-size: 400% 400%;
+
+  background-repeat: no-repeat;
+
+  cursor: pointer;
+
+  aspect-ratio: 1;
+
+  transition: transform 0.15s, outline 0.15s;
+
+  -webkit-tap-highlight-color: transparent;
+
+}
+
+.puzzle-piece.selected {
+
+  outline: 3px solid var(--gold);
+
+  outline-offset: -3px;
+
+  transform: scale(0.94);
+
+  z-index: 1;
+
+}
+
+.puzzle-piece:focus-visible {
+
+  outline: 3px solid white;
+
+}
+
+#puzzle-status {
+
+  color: var(--muted);
+
+  font-size: 12px;
+
+  line-height: 1.6;
+
+  min-height: 40px;
+
+  margin: 20px auto;
+
+  max-width: 350px;
+
+}
+
+#shuffle-button {
+
+  padding: 12px 25px;
+
+  font-size: 13px;
+
+}
+
+#puzzle-success {
+
+  margin-top: 25px;
+
+  animation: appear 0.8s ease both;
+
+}
+
+#puzzle-success h3 {
+
+  font-family: 'Playfair Display', serif;
+
+  color: var(--gold);
+
+  font-size: 30px;
+
+  font-weight: 400;
+
+}
+
+#puzzle-success p {
+
+  color: var(--muted);
+
+  margin-bottom: 25px;
+
+}
+
+#puzzle-success[hidden] {
+
+  display: none;
+
+}
+
+@media (max-width: 480px) {
+
+  #puzzle-board {
+
+    width: min(90vw, 360px);
+
+  }
+
+  .puzzle-content .little-flower {
+
+    margin-bottom: 10px;
+
+  }
+
+}
+
+/* MEKTUP SAYFASI */
+
+.letter-content {
+
+  width: 100%;
+
+  max-width: 600px;
+
+  margin: auto;
+
+  padding: 25px 0;
+
+}
+
+.letter-content h2 {
+
+  font-size: clamp(30px, 7vw, 43px);
+
+  margin: 10px 0 15px;
+
+}
+
+.letter-instruction {
+
+  color: var(--muted);
+
+  font-size: 14px;
+
+  margin-bottom: 35px;
+
+}
+
+/* ZARF */
+
+.envelope-scene {
+
+  width: min(85vw, 350px);
+
+  height: 245px;
+
+  margin: 35px auto;
+
+  perspective: 1000px;
+
+}
+
+.envelope {
+
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+
+  height: 215px;
+
+  border: none;
+
+  padding: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transform-style: preserve-3d;
+
+}
+
+.envelope-back {
+
+  position: absolute;
+
+  inset: 0;
+
+  background: #d8bd94;
+
+  border-radius: 5px;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,.3);
+
+}
+
+.envelope-paper-preview {
+
+  position: absolute;
+
+  width: 85%;
+
+  height: 80%;
+
+  left: 7.5%;
+
+  bottom: 8%;
+
+  background: #fff5e4;
+
+  border-radius: 3px;
+
+  z-index: 1;
+
+  transition: transform 1s ease;
+
+}
+
+.envelope-front {
+
+  position: absolute;
+
+  inset: 0;
+
+  background: #e6cba4;
+
+  clip-path: polygon(
+
+    0 0, 50% 52%, 100% 0,
+
+    100% 100%, 0 100%
+
+  );
+
+  z-index: 3;
+
+  border-radius: 5px;
+
+}
+
+.envelope-flap {
+
+  position: absolute;
+
+  inset: 0;
+
+  background: #f0d8b4;
+
+  clip-path: polygon(0 0, 100% 0, 50% 55%);
+
+  transform-origin: top center;
+
+  transition: transform 0.9s ease;
+
+  z-index: 4;
+
+  backface-visibility: hidden;
+
+}
+
+.wax-seal {
+
+  position: absolute;
+
+  top: 43%;
+
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 48px;
+
+  height: 48px;
+
+  border-radius: 50%;
+
+  background: #a65a58;
+
+  color: #fff0dc;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 26px;
+
+  z-index: 5;
+
+  box-shadow: 0 3px 10px rgba(0,0,0,.2);
+
+  transition: opacity 0.4s;
+
+}
+
+.envelope.open .envelope-flap {
+
+  transform: rotateX(180deg);
+
+  z-index: 0;
+
+}
+
+.envelope.open .envelope-paper-preview {
+
+  transform: translateY(-90px);
+
+  transition-delay: 0.6s;
+
+}
+
+.envelope.open .wax-seal {
+
+  opacity: 0;
+
+}
+
+/* MEKTUP KÂĞIDI */
+
+.letter-paper {
+
+  background: #f8efdf;
+
+  color: #54453d;
+
+  padding: clamp(25px, 6vw, 55px);
+
+  border-radius: 3px;
+
+  text-align: left;
+
+  box-shadow:
+
+    0 20px 50px rgba(0,0,0,.3),
+
+    inset 0 0 40px rgba(160,120,70,.08);
+
+  animation: letterAppear 1.2s ease both;
+
+  margin: 30px auto;
+
+  max-width: 550px;
+
+}
+
+.letter-paper[hidden] {
+
+  display: none;
+
+}
+
+.paper-decoration {
+
+  text-align: center;
+
+  color: #b38c57;
+
+  font-size: 28px;
+
+  margin-bottom: 25px;
+
+}
+
+.letter-paper h3 {
+
+  font-family: 'Playfair Display', serif;
+
+  font-size: 29px;
+
+  font-weight: 400;
+
+  margin-bottom: 30px;
+
+}
+
+.letter-body p {
+
+  font-family: 'Playfair Display', serif;
+
+  font-size: 17px;
+
+  line-height: 2;
+
+  margin-bottom: 22px;
+
+}
+
+.letter-signature {
+
+  font-family: 'Playfair Display', serif;
+
+  font-style: italic;
+
+  text-align: right;
+
+  font-size: 19px;
+
+  margin-top: 40px;
+
+  color: #936c54;
+
+}
+
+.letter-next {
+
+  margin: 20px auto 40px;
+
+}
+
+.letter-next[hidden] {
+
+  display: none;
+
+}
+
+@keyframes letterAppear {
+
+  from {
+
+    opacity: 0;
+
+    transform: translateY(40px) scale(.96);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .envelope-scene {
+
+    height: 220px;
+
+  }
+
+  .envelope {
+
+    height: 190px;
+
+  }
+
+  .letter-body p {
+
+    font-size: 15px;
+
+    line-height: 1.9;
+
+  }
+
+}
+
+/* YATAY AÇIK SCRAPBOOK */
+
+.scrapbook-content {
+
+  width: 100%;
+
+  max-width: 1150px;
+
+  margin: auto;
+
+  padding: 25px 0;
+
+}
+
+.scrapbook-content h2 {
+
+  font-size: clamp(30px, 5vw, 44px);
+
+  margin: 10px 0;
+
+}
+
+.scrapbook-subtitle {
+
+  color: var(--muted);
+
+  font-size: 14px;
+
+  margin-bottom: 30px;
+
+}
+
+.book-perspective {
+
+  width: 100%;
+
+  perspective: 1600px;
+
+  padding: 12px 0;
+
+}
+
+.scrapbook-book {
+
+  position: relative;
+
+  width: min(94vw, 1050px);
+
+  aspect-ratio: 1.65 / 1;
+
+  margin: 0 auto;
+
+  background: #f7f0e3;
+
+  border-radius: 8px 16px 16px 8px;
+
+  box-shadow:
+
+    0 7px 0 #d7c7ae,
+
+    0 13px 0 #b8a58c,
+
+    0 25px 55px rgba(0, 0, 0, .4);
+
+  overflow: hidden;
+
+  transform-style: preserve-3d;
+
+}
+
+/* Kitabın ortasındaki kat izi */
+
+.scrapbook-book::before {
+
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+
+  top: 0;
+
+  bottom: 0;
+
+  width: 24px;
+
+  transform: translateX(-50%);
+
+  background: linear-gradient(
+
+    90deg,
+
+    transparent,
+
+    rgba(100, 75, 48, .13),
+
+    rgba(255, 255, 255, .4),
+
+    rgba(100, 75, 48, .13),
+
+    transparent
+
+  );
+
+  z-index: 5;
+
+  pointer-events: none;
+
+}
+
+.book-pages {
+
+  position: relative;
+
+  width: 100%;
+
+  height: 100%;
+
+}
+
+.book-page {
+
+  position: absolute;
+
+  inset: 0;
+
+  padding: clamp(15px, 3vw, 38px);
+
+  color: #40382f;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  overflow-y: auto;
+
+  backface-visibility: hidden;
+
+}
+
+.book-page[hidden] {
+
+  display: none;
+
+}
+
+.page-heading {
+
+  font-family: 'Playfair Display', serif;
+
+  font-weight: 400;
+
+  font-size: clamp(19px, 3vw, 32px);
+
+  margin: 0;
+
+  text-align: center;
+
+}
+
+.page-note {
+
+  font-family: 'Playfair Display', serif;
+
+  font-size: clamp(12px, 1.8vw, 17px);
+
+  line-height: 1.5;
+
+  color: #776b62;
+
+  margin: 0;
+
+  text-align: center;
+
+  max-width: 85%;
+
+}
+
+.photo-layout {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  align-items: center;
+
+  justify-items: center;
+
+  gap: clamp(25px, 5vw, 65px);
+
+  width: 100%;
+
+  min-height: 0;
+
+  flex: 1;
+
+  padding: 8px 12px;
+
+}
+
+.polaroid {
+
+  width: 100%;
+
+  max-width: 420px;
+
+  max-height: 100%;
+
+  min-width: 0;
+
+  margin: 0;
+
+  background: #fffdf9;
+
+  padding: clamp(5px, 1vw, 12px);
+
+  box-shadow: 0 7px 22px rgba(60, 42, 25, .2);
+
+  transform: rotate(var(--angle, 0deg));
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+}
+
+.polaroid img {
+
+  display: block;
+
+  width: 100%;
+
+  height: auto;
+
+  max-height: clamp(125px, 37vw, 440px);
+
+  object-fit: contain;
+
+}
+
+.polaroid figcaption {
+
+  font-size: clamp(9px, 1.2vw, 13px);
+
+  color: #81766c;
+
+  margin-top: 10px;
+
+  text-align: center;
+
+}
+
+.polaroid figcaption:empty {
+
+  display: none;
+
+}
+
+.polaroid:nth-child(odd) {
+
+  --angle: -2deg;
+
+}
+
+.polaroid:nth-child(even) {
+
+  --angle: 2deg;
+
+}
+
+/* İlk ve son sayfadaki tek fotoğraf */
+
+.photo-layout:has(.polaroid:only-child) {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 0;
+
+  width: 100%;
+
+  max-width: none !important;
+
+}
+
+.photo-layout:has(.polaroid:only-child) .polaroid {
+
+  width: auto;
+
+  max-width: 80%;
+
+  max-height: 100%;
+
+  transform: rotate(-1deg);
+
+}
+
+.photo-layout:has(.polaroid:only-child) img {
+
+  width: auto;
+
+  max-width: 100%;
+
+  max-height: clamp(160px, 40vw, 480px);
+
+  aspect-ratio: auto;
+
+  object-fit: contain;
+
+}
+
+.page-number {
+
+  position: absolute;
+
+  bottom: 12px;
+
+  right: 25px;
+
+  font-size: 11px;
+
+  color: #a69a8e;
+
+}
+
+/* Sayfa geçiş animasyonu */
+
+.book-page.page-turn-next {
+
+  animation: turnNext .65s ease both;
+
+  transform-origin: center;
+
+}
+
+.book-page.page-turn-prev {
+
+  animation: turnPrev .65s ease both;
+
+  transform-origin: center;
+
+}
+
+@keyframes turnNext {
+
+  from {
+
+    opacity: .35;
+
+    transform: rotateY(-15deg) translateX(20px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: rotateY(0) translateX(0);
+
+  }
+
+}
+
+@keyframes turnPrev {
+
+  from {
+
+    opacity: .35;
+
+    transform: rotateY(15deg) translateX(-20px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: rotateY(0) translateX(0);
+
+  }
+
+}
+
+/* İleri geri kontrolleri */
+
+.book-controls {
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 35px;
+
+  margin-top: 35px;
+
+}
+
+.book-controls button {
+
+  width: 48px;
+
+  height: 48px;
+
+  border-radius: 50%;
+
+  border: 1px solid var(--gold);
+
+  background: transparent;
+
+  color: var(--gold);
+
+  font-size: 23px;
+
+  cursor: pointer;
+
+  transition: background .2s;
+
+}
+
+.book-controls button:hover:not(:disabled) {
+
+  background: rgba(231,197,126,.18);
+
+}
+
+.book-controls button:disabled {
+
+  opacity: .3;
+
+  cursor: default;
+
+}
+
+#book-counter {
+
+  color: var(--text);
+
+  font-size: 14px;
+
+  min-width: 55px;
+
+}
+
+.book-hint {
+
+  color: var(--muted);
+
+  font-size: 12px;
+
+  margin-top: 22px;
+
+  line-height: 1.6;
+
+}
+
+/* Telefon */
+
+@media (max-width: 600px) {
+
+  .scrapbook-content {
+
+    padding: 12px 0;
+
+  }
+
+  .scrapbook-book {
+
+    width: 96vw;
+
+    aspect-ratio: 1.3 / 1;
+
+  }
+
+  .book-page {
+
+    padding: 12px;
+
+    gap: 5px;
+
+  }
+
+  .photo-layout {
+
+    gap: 15px;
+
+    padding: 4px;
+
+  }
+
+  .polaroid {
+
+    padding: 5px;
+
+  }
+
+  .polaroid img {
+
+    max-height: 38vw;
+
+  }
+
+  .photo-layout:has(.polaroid:only-child) img {
+
+    max-height: 52vw;
+
+  }
+
+  .page-heading {
+
+    font-size: 17px;
+
+  }
+
+  .page-note {
+
+    font-size: 11px;
+
+  }
+
+  .polaroid figcaption {
+
+    font-size: 9px;
+
+    margin-top: 5px;
+
+  }
+
+  .book-controls {
+
+    margin-top: 25px;
+
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .book-page.page-turn-next,
+
+  .book-page.page-turn-prev {
+
+    animation: none;
+
+  }
+
+}
+
+/* İLK SAYFA: SOLDA YAZI, SAĞDA FOTOĞRAF */
+
+.book-page.first-page {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  grid-template-rows: 1fr;
+
+  align-items: center;
+
+  justify-items: center;
+
+  column-gap: 7%;
+
+  padding: 5%;
+
+  overflow: hidden;
+
+}
+
+.first-page .page-heading {
+
+  grid-column: 1;
+
+  grid-row: 1;
+
+  align-self: center;
+
+  transform: translateY(-35px);
+
+  font-size: clamp(22px, 3vw, 39px);
+
+  max-width: 90%;
+
+  line-height: 1.3;
+
+}
+
+.first-page .page-note {
+
+  grid-column: 1;
+
+  grid-row: 1;
+
+  align-self: center;
+
+  transform: translateY(45px);
+
+  font-size: clamp(12px, 1.5vw, 18px);
+
+  max-width: 85%;
+
+  font-style: italic;
+
+}
+
+.first-page .photo-layout {
+
+  grid-column: 2;
+
+  grid-row: 1;
+
+  width: 100%;
+
+  height: 100%;
+
+  padding: 0;
+
+  min-height: 0;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+}
+
+.first-page .polaroid {
+
+  width: 100% !important;
+
+  max-width: 100% !important;
+
+  max-height: 100%;
+
+  transform: rotate(2deg) !important;
+
+}
+
+.first-page .polaroid img {
+
+  width: 100% !important;
+
+  height: auto;
+
+  max-height: clamp(160px, 35vw, 470px);
+
+  object-fit: contain;
+
+  aspect-ratio: auto;
+
+}
+
+/* İlk sayfanın mobil yerleşimi */
+@media (max-width: 600px) {
+  .book-page.first-page { padding: 4%; column-gap: 6%; }
+  .first-page .page-heading { font-size: clamp(15px, 4vw, 22px); transform: translateY(-24px); }
+  .first-page .page-note { font-size: clamp(9px, 2.3vw, 12px); transform: translateY(35px); }
+  .first-page .polaroid img { max-height: 45vw; }
+}
+
+/* =====================================
+
+   HANDMADE SCRAPBOOK
+
+   ===================================== */
+
+/* Doğal, hafif dokulu defter sayfaları */
+
+.book-page {
+
+  background-image:
+
+    repeating-linear-gradient(
+
+      0deg,
+
+      rgba(115, 87, 56, .018) 0px,
+
+      rgba(115, 87, 56, .018) 1px,
+
+      transparent 1px,
+
+      transparent 6px
+
+    ),
+
+    linear-gradient(
+
+      90deg,
+
+      #f2e7d5 0%,
+
+      #fffaf0 45%,
+
+      #e9dcc7 50%,
+
+      #fffaf0 55%,
+
+      #f2e7d5 100%
+
+    );
+
+}
+
+/* Eski dekoratif yazıları ve köşe süslerini kaldır */
+
+.book-page::before,
+
+.book-page::after {
+
+  content: none;
+
+}
+
+/* Başlıklar sade kalsın */
+
+.page-heading {
+
+  color: #574638;
+
+  letter-spacing: .2px;
+
+}
+
+.page-heading::after {
+
+  content: none;
+
+}
+
+/* Notlar hafif el yazısı hissinde */
+
+.page-note {
+
+  font-family: 'Playfair Display', serif;
+
+  font-style: italic;
+
+  color: #846f5c;
+
+}
+
+/* Fotoğrafların temel görünümü */
+
+.polaroid {
+
+  position: relative;
+
+  isolation: isolate;
+
+  overflow: visible;
+
+  background: #fffdf8;
+
+  border: 1px solid rgba(110, 85, 55, .13);
+
+  box-shadow:
+
+    0 3px 7px rgba(65, 45, 25, .12),
+
+    0 12px 22px rgba(65, 45, 25, .10);
+
+  transition: transform .3s ease;
+
+}
+
+/* Fotoğraflar kırpılmasın */
+
+.polaroid img {
+
+  width: 100%;
+
+  height: auto;
+
+  object-fit: contain;
+
+  aspect-ratio: auto;
+
+}
+
+/* Fotoğraf açıklamaları */
+
+.polaroid figcaption {
+
+  font-family: 'Playfair Display', serif;
+
+  font-style: italic;
+
+  letter-spacing: .1px;
+
+  color: #76665a;
+
+}
+
+
+
+/* Fotoğrafların açıları */
+
+.polaroid:nth-child(odd) {
+
+  --angle: -2.5deg;
+
+}
+
+.polaroid:nth-child(even) {
+
+  --angle: 2deg;
+
+}
+
+/* 1. TİP: Yarı saydam yapıştırma bandı */
+
+.book-page[data-style="tape"] .polaroid::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: -9px;
+
+  left: 50%;
+
+  width: 72px;
+
+  height: 19px;
+
+  transform: translateX(-50%) rotate(-5deg);
+
+  background: rgba(184, 153, 110, .55);
+
+  box-shadow: 0 1px 3px rgba(60, 40, 20, .1);
+
+  z-index: 3;
+
+  pointer-events: none;
+
+}
+
+/* İkinci fotoğraftaki bant farklı dursun */
+
+.book-page[data-style="tape"]
+
+.polaroid:nth-child(even)::before {
+
+  left: 65%;
+
+  transform: translateX(-50%) rotate(9deg);
+
+  background: rgba(154, 165, 138, .5);
+
+}
+
+/* 2. TİP: Fotoğraf köşesi tutucuları */
+
+.book-page[data-style="corners"] .polaroid::before,
+
+.book-page[data-style="corners"] .polaroid::after {
+
+  content: "";
+
+  position: absolute;
+
+  width: 23px;
+
+  height: 23px;
+
+  z-index: 3;
+
+  pointer-events: none;
+
+}
+
+.book-page[data-style="corners"] .polaroid::before {
+
+  top: 2px;
+
+  left: 2px;
+
+  border-top: 8px solid #b7a184;
+
+  border-left: 8px solid #b7a184;
+
+}
+
+.book-page[data-style="corners"] .polaroid::after {
+
+  bottom: 2px;
+
+  right: 2px;
+
+  border-bottom: 8px solid #b7a184;
+
+  border-right: 8px solid #b7a184;
+
+}
+
+/* 3. TİP: Fotoğrafın altındaki ikinci kâğıt */
+
+.book-page[data-style="paper"] .polaroid::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: -7px;
+
+  background: #d9c6a9;
+
+  transform: rotate(4deg);
+
+  box-shadow: 0 3px 10px rgba(60, 40, 20, .12);
+
+  z-index: -1;
+
+  pointer-events: none;
+
+}
+
+.book-page[data-style="paper"]
+
+.polaroid:nth-child(even)::before {
+
+  background: #d2d5c5;
+
+  transform: rotate(-4deg);
+
+}
+
+/* 4. TİP: Daha sade fotoğraf yapıştırması */
+
+.book-page[data-style="simple"] .polaroid {
+
+  border: 1px solid rgba(90, 70, 45, .12);
+
+}
+
+.book-page[data-style="simple"] .polaroid::before {
+
+  content: none;
+
+}
+
+/* Hafif doğal düzensizlik */
+
+.book-page[data-style="simple"]
+
+.polaroid:nth-child(odd) {
+
+  --angle: -1deg;
+
+}
+
+.book-page[data-style="simple"]
+
+.polaroid:nth-child(even) {
+
+  --angle: 1.5deg;
+
+}
+
+/* Telefon düzeni */
+
+@media (max-width: 600px) {
+
+  .book-page[data-style="tape"]
+
+  .polaroid::before {
+
+    width: 38px;
+
+    height: 12px;
+
+    top: -6px;
+
+  }
+
+  .book-page[data-style="corners"]
+
+  .polaroid::before,
+
+  .book-page[data-style="corners"]
+
+  .polaroid::after {
+
+    width: 12px;
+
+    height: 12px;
+
+  }
+
+  .book-page[data-style="corners"]
+
+  .polaroid::before {
+
+    border-top-width: 5px;
+
+    border-left-width: 5px;
+
+  }
+
+  .book-page[data-style="corners"]
+
+  .polaroid::after {
+
+    border-bottom-width: 5px;
+
+    border-right-width: 5px;
+
+  }
+
+  .book-page[data-style="paper"]
+
+  .polaroid::before {
+
+    inset: -4px;
+
+  }
+
+}
+#music-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 999;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #e7c57e;
+  background: #24232d;
+  color: #e7c57e;
+  font-size: 23px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,.25);
+}
+
+/* ÜÇE KATLANAN MEKTUP */
+
+.folded-letter {
+  width: min(90vw, 620px);
+  max-height: 75dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  cursor: pointer;
+  perspective: 1200px;
+  transition: max-height 0.8s ease;
+}
+
+.folded-letter[hidden] {
+  display: none !important;
+}
+
+.folded-letter .letter-fold {
+  transform-origin: top center;
+  backface-visibility: hidden;
+}
+
+.folded-letter .fold-one {
+  animation: unfoldPaper 0.8s ease both;
+}
+
+.folded-letter .fold-two,
+.folded-letter .fold-three {
+  display: none;
+}
+
+.folded-letter[data-fold="2"] .fold-two,
+.folded-letter[data-fold="3"] .fold-two,
+.folded-letter[data-fold="3"] .fold-three {
+  display: block;
+  animation: unfoldPaper 0.85s ease both;
+  border-top: 1px solid rgba(110, 80, 50, 0.17);
+  box-shadow: 0 -5px 12px -12px rgba(55, 35, 20, 0.6);
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+@keyframes unfoldPaper {
+  from {
+    opacity: 0.2;
+    transform: rotateX(-85deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0deg);
+  }
+}
+
+.fold-instruction {
+  text-align: center;
+  font-size: 12px;
+  font-style: italic;
+  opacity: 0.65;
+  margin-top: 22px;
+  animation: foldHintPulse 2s ease-in-out infinite;
+}
+
+@keyframes foldHintPulse {
+  50% { opacity: 0.35; }
+}
+
+.folded-letter[data-fold="3"] .fold-instruction {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .folded-letter,
+  .folded-letter .letter-fold {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+#letter-next[hidden] {
+  display: none !important;
+}
+.polaroid figcaption {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(10px, 1.2vw, 14px);
+  line-height: 1.45;
+  color: #705b4a;
+  text-align: center;
+  margin-top: 10px;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}

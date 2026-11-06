@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gay Gay İşler Müdürü</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+<audio id="background-music" src="muzik.mp3" loop preload="auto"></audio>
+
+<button id="music-toggle" type="button" aria-label="Müziği aç veya kapat">
+  ♫
+</button>
+  <main id="login-screen" class="screen active">
+    <div class="login-content">
+      <div class="little-flower">✿</div>
+
+      <h1>Gay Gay<br>İşler Müdürü</h1>
+      <p class="subtitle">Senden öncesi bir hayatmış, senden sonrası yaşamak</p>
+
+      <p class="password-label">Şifreyi gir</p>
+
+      <div class="password-dots" aria-label="Girilen şifre">
+        <span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="keypad">
+        <button data-key="1">1</button>
+        <button data-key="2">2</button>
+        <button data-key="3">3</button>
+        <button data-key="4">4</button>
+        <button data-key="5">5</button>
+        <button data-key="6">6</button>
+        <button data-key="7">7</button>
+        <button data-key="8">8</button>
+        <button data-key="9">9</button>
+        <div></div>
+        <button data-key="0">0</button>
+        <button id="delete-key" aria-label="Sil">⌫</button>
+      </div>
+
+      <p id="error-message" aria-live="polite"></p>
+    </div>
+  </main>
+
+  <section id="welcome-screen" class="screen">
+    <div class="welcome-content">
+      <div class="little-flower">✿</div>
+      <h2>Hoş geldin, sevgilim.</h2>
+      <p>
+        Burası yalnızca ikimize ait küçük bir dünya.
+        Birlikte biriktirdiğimiz anılara
+        yeniden bakmak için...
+      </p>
+      <button class="next-button" id="next-button">
+        İleri →
+      </button>
+    </div>
+  </section>
+
+  
+<section id="puzzle-screen" class="screen">
+  <div class="puzzle-content">
+    <div class="little-flower">✿</div>
+
+    <h2>sadece seni daha fazla uğraştırmak için ♡</h2>
+    <p class="puzzle-description">
+      Parçaları birleştir, bana sövme.
+    </p>
+
+    <div id="puzzle-board" aria-label="16 parçalık fotoğraf bulmacası"></div>
+
+    <p id="puzzle-status" aria-live="polite">
+      Bir parçaya dokun, sonra yerini değiştirmek
+      istediğin parçaya dokun.
+    </p>
+
+    <button id="shuffle-button" class="next-button">
+      Yeniden Karıştır ↻
+    </button>
+
+    <div id="puzzle-success" hidden>
+      <h3>Başardın! ♡</h3>
+      <p>O kadar da zor değildir ya.</p>
+      <button id="puzzle-next" class="next-button">
+        İleri →
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- MEKTUP SAYFASI -->
+<section id="letter-screen" class="screen">
+  <div class="letter-content">
+
+    <div class="little-flower">✿</div>
+
+    <h2>Sana bir şeyler yazdım, yine ♡</h2>
+    <p class="letter-instruction">
+      Açmak için zarfa dokun...
+    </p>
+
+    <div class="envelope-scene" id="envelope-scene">
+      <button
+        class="envelope"
+        id="envelope"
+        aria-label="Mektubu aç"
+        aria-expanded="false"
+        type="button"
+      >
+        <div class="envelope-back"></div>
+        <div class="envelope-paper-preview"></div>
+        <div class="envelope-flap"></div>
+        <div class="envelope-front"></div>
+        <div class="wax-seal">♡</div>
+      </button>
+    </div>
+
+    
+<article id="letter-paper" class="letter-paper folded-letter" hidden>
+  <div class="paper-decoration">✿</div>
+
+  <h3>Şahsi lavuğum,</h3>
+
+  <div class="letter-body">
+    <div class="letter-fold fold-one">
+      <p>
+        Ne kadar yazabilirim, bilmiyorum, engin kodlama bilgilerim 
+        ne kadar uzun bir kağıt yapmama izin verdi, hiç emin değilim, ama denemek
+        istiyorum. Bakalım, zaten çok uzun şeyler yazmamı sen de sevmiyorsun galiba 
+        ben de pek uzatamıyorum.
+        YOK BİR DAKİKA AKLIMA BİR FİKİR GELDİ ONU YAPABİLİRSEM UZATABİLİRİM
+      </p>
+    </div>
+
+    <div class="letter-fold fold-two">
+      <p>
+        Sevgilim, hayatım, canımın içi, evim, her şeyim 
+        Seninle tanıştığım gün benim için özel olmanı istemiştim, sonraki konuşmalarımızda
+        anlamıştım benim için ne kadar önemli olacağını. Oradan, hiç görmediğin birinin
+        kalbine dokunabiliyordun. Çok uzaklardan, ruhumu görebiliyordun. Gözlerime bakınca 
+        içimi okuyordun. Senden saklanmam mümkün değildi, senden saklanmayı hiç istemedim de. 
+        Her ne kadar bilsem de benim için önemli olacağını, hayatımın anlamı olman, sana bu denli 
+        kapılmam, seni bu kadar sevmem bana da sürpriz oldu. Ama başıma gelen en güzel şeylerdensin sen. 
+        Benim bu hayattaki en büyük iyi ki'msin. Sana ne kadar yazsam da yeterli gelmeyecek, ama tek bir 
+        bakışım bile anlatır sevgimi, biliyorum.
+      </p>
+    </div>
+
+    <div class="letter-fold fold-three">
+      <p>
+        Çok şey yaşadık, çok şey paylaştık beraber ve daha çok şey yaşayacağız, paylaşacağız. Sevgilim, 
+        hayat uzun bir yol, engebelerle dolu. Hep yalnız savaştık, hep yalnız düştük, yalnız kalktık. Bundan 
+        sonra yalnız olmayacağız, birbirimize sahip olacağız. Birbirimizi seveceğiz, birbirimizi koruyacağız.
+        Birbirimizi anlayacağız, birbirimizi dinleyeceğiz. Birbirimizin elini hiçbir zaman bırakmayacağız. Ne olursa
+        olsun yanımda olduğunu biliyorum, ne olursa olsun yanında olacağımı unutma. Bu kadar ciddi bir şeyler yazmak 
+        aklımda yoktu ama ne yapayım artık ben yazdım, sen de okuyacaksın. Sağol.
+      </p>
+
+      <p class="letter-signature">
+        Hadi öptüm,
+        Şahsi amsalağın ♡
+      </p>
+    </div>
+  </div>
+
+  <p id="fold-instruction" class="fold-instruction">
+    Devamını okumak için kâğıda dokun ↓
+  </p>
+</article>
+
+
+    <button
+      id="letter-next"
+      class="next-button letter-next"
+      hidden
+    >
+      Anılarımıza Geç →
+    </button>
+
+  </div>
+</section>
+
+
+<!-- SCRAPBOOK SAYFASI -->
+<section id="scrapbook-screen" class="screen">
+  <div class="scrapbook-content">
+
+    <div class="little-flower">✿</div>
+    <h2>Bizim Hikayemiz</h2>
+    <p class="scrapbook-subtitle">
+      Küçük anlardan oluşan kocaman bir hikâye.
+    </p>
+
+    <div class="book-perspective">
+      <div id="scrapbook-book" class="scrapbook-book"
+           aria-label="Fotoğraflı anı defteri">
+
+        <div id="book-pages" class="book-pages"></div>
+
+      </div>
+    </div>
+
+    <div class="book-controls">
+      <button id="book-prev" type="button"
+              aria-label="Önceki sayfa">
+        ←
+      </button>
+
+      <span id="book-counter">1 / 4</span>
+
+      <button id="book-next" type="button"
+              aria-label="Sonraki sayfa">
+        →
+      </button>
+    </div>
+
+    <p class="book-hint">
+      Sayfaları çevirmek için okları kullan
+      veya telefonda sağa sola kaydır ♡
+    </p>
+
+  </div>
+</section>
+
+  <div id="flower-container" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
