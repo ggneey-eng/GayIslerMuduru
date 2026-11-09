@@ -90,35 +90,46 @@ function createDaisy() {
 function createCactus() {
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg"
-         width="48" height="48" viewBox="0 0 48 48">
+         width="90" height="105" viewBox="0 0 90 105">
 
-      <path d="M19 30 H15 Q10 30 10 24 V18
-               Q10 15 13 15 Q16 15 16 18 V23
-               Q16 25 19 25"
-            fill="none" stroke="#368e4b"
-            stroke-width="7" stroke-linecap="round"/>
+      <!-- Yuvarlak kollar -->
+      <path d="M34 68 Q14 73 14 54 V43
+               Q14 34 22 34 Q30 34 30 43 V51
+               M55 67 Q76 71 76 52 V41
+               Q76 32 68 32 Q60 32 60 41 V48"
+            stroke="#55b875" stroke-width="14"
+            stroke-linecap="round" fill="none"/>
 
-      <path d="M29 28 H33 Q38 28 38 22 V17
-               Q38 14 35 14 Q32 14 32 17 V21
-               Q32 23 29 23"
-            fill="none" stroke="#368e4b"
-            stroke-width="7" stroke-linecap="round"/>
+      <!-- Tombul gövde -->
+      <rect x="31" y="18" width="29" height="77"
+            rx="14.5" fill="#60c681"/>
 
-      <rect x="18" y="7" width="12" height="36"
-            rx="6" fill="#42a65a"/>
+      <!-- Gövde çizgileri -->
+      <path d="M40 25 Q38 56 40 87
+               M51 25 Q53 56 51 87"
+            stroke="#3ca866" stroke-width="2"
+            fill="none"/>
 
-      <path d="M22 10 V40 M26 10 V40"
-            stroke="#287b40" stroke-width="1.3"
-            opacity="0.7"/>
-
-      <g stroke="#e6e6a5" stroke-width="1.2"
+      <!-- İnce, açık renkli dikenler -->
+      <g stroke="#e9e5ad" stroke-width="1.8"
          stroke-linecap="round">
-        <path d="M19 15 l-4 -2 M19 23 l-4 1
-                 M19 32 l-4 -1 M19 38 l-3 2
-                 M29 14 l4 -2 M29 22 l4 1
-                 M29 31 l4 -1 M29 38 l3 2
-                 M23 18 l-2 -3 M26 28 l2 -3
-                 M23 35 l-2 2"/>
+        <path d="
+          M32 32 L25 28
+          M32 47 L24 47
+          M32 65 L24 69
+          M34 80 L27 85
+          M59 30 L67 26
+          M59 47 L68 49
+          M59 64 L68 67
+          M57 81 L64 86
+          M43 35 L39 30
+          M50 55 L55 51
+          M42 73 L38 78
+          M18 45 L10 42
+          M18 58 L10 61
+          M73 44 L82 40
+          M72 57 L81 60
+        "/>
       </g>
     </svg>
   `;
@@ -131,7 +142,7 @@ const yellowDaisy = createDaisy();
 const greenCactus = createCactus();
 
 function startFlowerAnimation() {
-  const numberOfFlowers = 250;
+  const numberOfFlowers = 500;
 
   for (let i = 0; i < numberOfFlowers; i++) {
     const flower = document.createElement("img");
@@ -143,7 +154,7 @@ function startFlowerAnimation() {
 
     // Kaktüsler papatyalardan biraz daha büyük
     const size = 16 + Math.random() * 23;
-    const finalSize = isCactus ? size * 1.22 : size;
+    const finalSize = isCactus ? size * 2.50 : size;
 
     flower.style.width = finalSize + "px";
     flower.style.height = finalSize + "px";
