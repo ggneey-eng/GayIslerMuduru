@@ -66,44 +66,90 @@ function updateDots() {
   });
 }
 
-// Küçük sarı ve beyaz papatyalar oluşturur
-function createDaisy(color) {
+
+
+function createDaisy() {
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg"
          width="48" height="48" viewBox="0 0 48 48">
-      ${Array.from({length: 9}, (_, i) => `
+      ${Array.from({ length: 9 }, (_, i) => `
         <ellipse cx="24" cy="12" rx="5" ry="10"
-          fill="${color}"
+          fill="#f4d43b"
           transform="rotate(${i * 40} 24 24)"/>
       `).join("")}
-      <circle cx="24" cy="24" r="7" fill="#e9a83d"/>
-      <circle cx="22" cy="22" r="2" fill="#f8d98c"
+      <circle cx="24" cy="24" r="7" fill="#e6a526"/>
+      <circle cx="22" cy="22" r="2" fill="#ffe78a"
               opacity="0.7"/>
     </svg>
   `;
+
   return "data:image/svg+xml;charset=utf-8," +
     encodeURIComponent(svg);
 }
 
-const whiteDaisy = createDaisy("#fffaf0");
-const yellowDaisy = createDaisy("#f4d86b");
+function createCactus() {
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="48" height="48" viewBox="0 0 48 48">
+
+      <path d="M19 30 H15 Q10 30 10 24 V18
+               Q10 15 13 15 Q16 15 16 18 V23
+               Q16 25 19 25"
+            fill="none" stroke="#368e4b"
+            stroke-width="7" stroke-linecap="round"/>
+
+      <path d="M29 28 H33 Q38 28 38 22 V17
+               Q38 14 35 14 Q32 14 32 17 V21
+               Q32 23 29 23"
+            fill="none" stroke="#368e4b"
+            stroke-width="7" stroke-linecap="round"/>
+
+      <rect x="18" y="7" width="12" height="36"
+            rx="6" fill="#42a65a"/>
+
+      <path d="M22 10 V40 M26 10 V40"
+            stroke="#287b40" stroke-width="1.3"
+            opacity="0.7"/>
+
+      <g stroke="#e6e6a5" stroke-width="1.2"
+         stroke-linecap="round">
+        <path d="M19 15 l-4 -2 M19 23 l-4 1
+                 M19 32 l-4 -1 M19 38 l-3 2
+                 M29 14 l4 -2 M29 22 l4 1
+                 M29 31 l4 -1 M29 38 l3 2
+                 M23 18 l-2 -3 M26 28 l2 -3
+                 M23 35 l-2 2"/>
+      </g>
+    </svg>
+  `;
+
+  return "data:image/svg+xml;charset=utf-8," +
+    encodeURIComponent(svg);
+}
+
+const yellowDaisy = createDaisy();
+const greenCactus = createCactus();
 
 function startFlowerAnimation() {
-  const numberOfFlowers = 85;
+  const numberOfFlowers = 250;
 
   for (let i = 0; i < numberOfFlowers; i++) {
     const flower = document.createElement("img");
     flower.className = "falling-flower";
 
-    flower.src = Math.random() > 0.5
-      ? whiteDaisy
-      : yellowDaisy;
+    const isCactus = Math.random() < 0.35;
 
+    flower.src = isCactus ? greenCactus : yellowDaisy;
+
+    // Kaktüsler papatyalardan biraz daha büyük
     const size = 16 + Math.random() * 23;
-    flower.style.width = size + "px";
-    flower.style.height = size + "px";
+    const finalSize = isCactus ? size * 1.22 : size;
+
+    flower.style.width = finalSize + "px";
+    flower.style.height = finalSize + "px";
 
     flower.style.left = Math.random() * 100 + "vw";
+
     flower.style.animationDuration =
       (3 + Math.random() * 2) + "s";
 
