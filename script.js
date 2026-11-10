@@ -142,7 +142,7 @@ const yellowDaisy = createDaisy();
 const greenCactus = createCactus();
 
 function startFlowerAnimation() {
-  const numberOfFlowers = 500;
+  const numberOfFlowers = 200;
 
   for (let i = 0; i < numberOfFlowers; i++) {
     const flower = document.createElement("img");
